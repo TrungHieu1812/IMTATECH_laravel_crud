@@ -20,7 +20,9 @@ class productController extends Controller
 
     public function create()
     {
-        return view('create');
+        $categories = DB::table('categories')->get();
+        return view('create',compact('categories'));
+
     }
 
    
@@ -37,20 +39,22 @@ class productController extends Controller
     }
 
     
-    public function edit(string $id)
+    public function edit(Products $product)
     {
-        //
+        return view('edit', compact('product'));
     }
 
    
-    public function update(Request $request, string $id)
+    public function update(Request $request,Products $product)
     {
-        //
+        $product->update($request->all());
+        return redirect()->route('product.index')->with('thongbao','Cập nhật sản phẩm thành công!');
     }
 
     
-    public function destroy(string $id)
+    public function destroy(Products $product)
     {
-        //
+        $product->delete();
+        return redirect()->route('product.index')->with('thongbao','Xóa sản phẩm thành công!');
     }
 }

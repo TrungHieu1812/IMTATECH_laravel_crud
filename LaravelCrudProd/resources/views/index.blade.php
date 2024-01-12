@@ -35,13 +35,18 @@
                         @foreach ($product as $item)
                             <tr>
                                 <td>{{++$i}}</td>
-                                <td>{{$item->idProd}}</td>
+                                <td>{{$item->id}}</td>
                                 <td>{{$item->name}}</td>
                                 <td>{{$item->price}}</td>
                                 <td>{{$item->description}}</td>
                                 <td>{{$item->category_name}}</td>
                                 <td>
-
+                                    <form action="{{route('product.destroy',$item->id)}}" method="POST">
+                                        <a href="{{route('product.edit',$item->id)}}" class="btn btn-success">Sửa</a>
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">Xóa</button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach
